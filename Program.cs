@@ -8,7 +8,6 @@ namespace murphy_linkedlist
         {
             LinkedList list = new LinkedList();
             list.Menu();
-            //add items here for example
         }
 
     }
@@ -44,6 +43,7 @@ namespace murphy_linkedlist
                 {
                     switch (num)
                     {
+                        //switch case menu
                         case 1:
                             getFirst();
                             break;
@@ -88,7 +88,9 @@ namespace murphy_linkedlist
             {
                 Node newHead = new Node(data);
                 newHead.next = head;
+                //set old head to the next spot in the list
                 head = newHead;
+                //set new head to the front
             }
             return head;
         }
@@ -104,8 +106,10 @@ namespace murphy_linkedlist
                 Node current = head;
                 while ( current.next != null)
                 {
+                    //progress in loop until current doesn't have a reference to next in list
                     current = current.next;
                 }
+                //place new node after current
                 current.next = new Node(data);
                 return current.next;
             }
@@ -125,6 +129,8 @@ namespace murphy_linkedlist
 
                 while (data != current.data && current != null)
                 {
+                    //while entered data doesn't equal the current node (and the current node isn't null)
+                    //keep looping with a temporary state of 'previous' to help point later
                     previous = current;
                     current = current.next;
                 }
@@ -137,11 +143,14 @@ namespace murphy_linkedlist
                     else
                     {
                         previous.next = current.next;
+                        //repoint the reference using previous because the match to data was found
                         current = null;
                     }
                     current = null;
                     removed = true;
                 }
+                //what if current == null here?
+                //current == null means no match was found, error catch
                 return removed;
             }
         }
@@ -164,10 +173,12 @@ namespace murphy_linkedlist
                     }
                     Console.WriteLine("The linked list contains " + data);
                     return current;
+                    //return the match to the entered data
                 }
                 catch
                 {
                     Console.WriteLine("There is no match in the linked list.");
+                    //could rewrite this to use something closer to the Remove method
                     return null;
                 }
             }
