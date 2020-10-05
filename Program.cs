@@ -114,7 +114,7 @@ namespace murphy_linkedlist
                 return current.next;
             }
         }
-        public bool Remove(string data) //WIP
+        public bool Remove(string data)
         {
             bool removed = false;
             if (head == null)
@@ -127,30 +127,36 @@ namespace murphy_linkedlist
                 Node current = head;
                 Node previous = null;
 
-                while (data != current.data && current != null)
+                while (data != current.data && current.next != null)
                 {
-                    //while entered data doesn't equal the current node (and the current node isn't null)
-                    //keep looping with a temporary state of 'previous' to help point later
+                    //while entered data doesn't equal the current node
+                    //and there is still a node after current to be checked
+                    //keep looping with a temporary state of 'previous'
                     previous = current;
                     current = current.next;
                 }
-                if (current != null)
+                if (data == current.data)
                 {
+                    //if the point of breaking out from the loop is because of a match, this occurs
                     if (previous == null)
                     {
                         head = current.next;
+                        current = null;
                     }
                     else
                     {
                         previous.next = current.next;
-                        //repoint the reference using previous because the match to data was found
+                        //repoint the reference using previous
                         current = null;
                     }
-                    current = null;
                     removed = true;
                 }
-                //what if current == null here?
-                //current == null means no match was found, error catch
+                else
+                {
+                    //else there was no match upon exiting the loop
+                    Console.WriteLine("There is no " + data + " in the linked list.");
+                    removed = false;
+                }
                 return removed;
             }
         }
@@ -163,26 +169,26 @@ namespace murphy_linkedlist
                 return null;
             }
             else
-            { 
+            {
                 Node current = head;
-                try
+                while (data != current.data && current.next != null)
                 {
-                    while (current.data != data)
-                    {
-                        current = current.next;
-                    }
-                    Console.WriteLine("The linked list contains " + data);
-                    return current;
-                    //return the match to the entered data
+                    current = current.next;
                 }
-                catch
+                if (data == current.data)
                 {
-                    Console.WriteLine("There is no match in the linked list.");
-                    //could rewrite this to use something closer to the Remove method
+                    Console.WriteLine("The linked list contains " + data);
+                    //return the match to the entered data
+                    return current;
+                }
+                else
+                {
+                    Console.WriteLine("There is no " + data + " in the linked list.");
                     return null;
                 }
             }
         }
+
         public void getFirst()
         {
             Node current = head;
